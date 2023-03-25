@@ -22,7 +22,7 @@ public class MeteorologicalRecord {
     @Column(name = "id")
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "plot_id", referencedColumnName = "id")
     private Plot plot;
 

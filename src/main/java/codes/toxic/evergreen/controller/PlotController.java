@@ -13,19 +13,17 @@ import kong.unirest.HttpResponse;
 import kong.unirest.JsonNode;
 import kong.unirest.Unirest;
 import kong.unirest.json.JSONObject;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/plots")
 public class PlotController {
 
@@ -135,7 +133,8 @@ public class PlotController {
 				.queryString("APPID", apiKey)
 				.asJson();
 
-		JSONObject object = response.getBody().getObject().getJSONObject("main");
+		JSONObject base = response.getBody().getObject();
+		JSONObject object = base.getJSONObject("main");
 
 		double temperature = object.getDouble("temp");
 		double pressure = object.getDouble("pressure");
